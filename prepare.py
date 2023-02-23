@@ -43,11 +43,19 @@ def x_y_split(df, target, seed=42):
     return X_train, y_train, X_val, y_val, X_test, y_test
 
 
+def prep_curriculum(df):
+    
+    '''
+    This function is used to clean and prepare the curriculum logs data for manipulation 
+    '''
+    
+    df = df[df['program_id']!=4]
 
-
-
-
-
+    df.drop(columns=['Unnamed: 0'], inplace=True)
+    
+    df = df[df['path']!='/']
+    
+    return df
 
 
 

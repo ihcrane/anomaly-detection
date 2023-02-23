@@ -130,3 +130,23 @@ def get_auto_mpg():
     df['horsepower'] = df['horsepower'].astype('float')
     
     return df
+
+def get_curriculum_logs():
+    
+    '''Acquire the curriculum logs data'''
+    
+    if os.path.isfile('curriculum_logs.csv'):
+        
+        return pd.read_csv('curriculum_logs.csv')
+    
+    else:
+        url = get_connection('curriculum_logs')
+        query = '''
+                SELECT * FROM logs as l
+                JOIN cohorts as c
+                WHERE l.cohort_id = c.id;
+                '''
+        df = pd.read_sql(query, url)
+        df.to_csv('curriculum_logs.csv')
+        return df
+    
